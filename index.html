@@ -12,6 +12,8 @@
     <!--<script src="/js/init.js"></script>-->
     <script src="js/config.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/localization-service.js"></script>
+    <script src="js/persister-service.js"></script>
     <script src="js/annyang-service.js"></script>
     <script src="js/weather-service.js"></script>
     <script src="js/map-service.js"></script>
@@ -47,7 +49,7 @@
     </div>
     <div class="container">
       <div class="middle-center">
-        <h1>{{complement}}</h1>
+        <h1>{{compliment}}</h1>
         <h3 ng-show="!(user.name === undefined)">{{user.name}}</h3>
         <!-- <div class="listening" ng-show="listening">Ready: {{focus}}</div> -->
         <div class="map-container animate-grow" ng-show="focus == 'map'">
@@ -57,27 +59,27 @@
       <div class="bottom-center">
         <!-- Command list -->
         <div class="commands animate-grow" ng-show="focus == 'commands'">
-          <h2>Availalble Commands</h2>
+          <h2>{{locale.getString("help_available_commands")}}</h2>
           <dl>
-            <dt>What can I say?</dt>
-            <dd>Shows a list of voice commands available to you.</dd>
-            <dt>Go home</dt>
-            <dd>Takes you back to the home screen</dd>
-            <dt>Show me ________</dt>
-            <dd>Will show you pictures of the requested item.</dd>
-            <dt>Remind me to ________</dt>
-            <dd>Add something to the reminders list.</dd>
-            <dt>Clear reminders</dt>
-            <dd>Clears out your reminders list.</dd>
-            <dt>Show map</dt>
-            <dd>Shows a map of your current city.</dd>
-            <dt>Show map of ________</dt>
-            <dd>Shows a map of the given location.</dd>
+            <dd>{{locale.getString("help_command_help")}}</dd>
+            <dt>{{locale.getString("help_description_help")}}</dt>
+            <dd>{{locale.getString("help_command_home")}}</dd>
+            <dt>{{locale.getString("help_description_home")}}</dt>
+            <dd>{{locale.getString("help_command_showme")}}</dd>
+            <dt>{{locale.getString("help_description_showme")}}</dt>
+            <dd>{{locale.getString("help_command_remindme")}}</dd>
+            <dt>{{locale.getString("help_description_remindme")}}</dt>
+            <dd>{{locale.getString("help_command_clearreminder")}}</dd>
+            <dt>{{locale.getString("help_description_clearreminder")}}</dt>
+            <dd>{{locale.getString("help_command_showmap")}}</dd>
+            <dt>{{locale.getString("help_description_showmap")}}</dt>
+            <dd>{{locale.getString("help_command_showmapof")}}</dd>
+            <dt>{{locale.getString("help_description_showmapof")}}</dt>
           </dl>
           <small>
-            We are using node <script>document.write(process.versions.node)</script>,
+            {{locale.getString("help_info_node_label")}} <script>document.write(process.versions.node)</script>,
             Chrome <script>document.write(process.versions.chrome)</script>,
-            and Electron <script>document.write(process.versions.electron)</script>.
+            {{locale.getString("help_info_electron_label")}} <script>document.write(process.versions.electron)</script>.
           </small>
         </div>
 

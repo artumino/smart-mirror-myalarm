@@ -23,7 +23,8 @@
             console.debug('added command "' + phrase + '"', service.commands);
         };
 
-        service.start = function(listening, interimResult, result) {
+        service.start = function (locale, listening, interimResult, result) {
+            annyang.setLanguage(locale);
             annyang.addCommands(service.commands);
             annyang.debug(true);
             annyang.start();
