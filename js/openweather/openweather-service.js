@@ -46,6 +46,19 @@
             if(service.forecast === null){
                 return null;
             }
+
+            service.forecast.data.list[0].getTemperature = function ()
+            {
+                var currentDate = new Date();
+
+                if (currentDate.getHours() < 11 && currentDate.getHours() > 4)
+                    return this.temp.morning;
+
+                if (currentDate.getHours() >= 11 && currentDate.getHours() < 18)
+                    return this.temp.day;
+
+                return this.temp.night;
+            }
             return service.forecast.data.list[0];
         }
 

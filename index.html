@@ -48,7 +48,7 @@
                             <span>{{currentForecast.snow}}mm</span>
                         </span>
                         </span>
-                    <span class="temperature">{{currentForecast.temp.day}}&deg;</span>
+                    <span class="temperature">{{currentForecast.getTemperature()}}&deg;</span>
                     <span class="info-box">
                         <span class="info">{{forecast.currentCity()}}</span>
                         <span class="info">{{forecast.getDescriptionForWeather(currentForecast.weather[0].id)}}</span>
