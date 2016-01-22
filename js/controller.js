@@ -1,12 +1,12 @@
 (function(angular) {
     'use strict';
 
-    function MirrorCtrl(AnnyangService, GeolocationService, WeatherService, MapService, PersisterService, LocalizationService, HueService, $scope, $timeout, $interval) {
+    function MirrorCtrl(AnnyangService, GeolocationService, WeatherService, OpenWeatherService, MapService, PersisterService, LocalizationService, HueService, $scope, $timeout, $interval) {
         var _this = this;
         
         //Initialize persisters outside the init function
         PersisterService.init();
-        LocalizationService.init(PersisterService.getKey("language", "it-IT"));
+        LocalizationService.init(PersisterService.getKey("language", "en-US"));
 
         var DEFAULT_COMMAND_TEXT = LocalizationService.getString("default_homepage_say_label");
         $scope.listening = false;
@@ -43,7 +43,21 @@
             //Get our location and then get the weather for our location
             GeolocationService.getLocation().then(function(geoposition){
                 console.log("Geoposition", geoposition);
-                WeatherService.init(geoposition).then(function(){
+                
+                OpenWeatherService.init(geoposition, PersisterService).then(function () {
+                    $scope.forecast = OpenWeatherService;
+                    $scope.currentForecast = OpenWeatherService.currentForecast();
+                    $scope.weeklyForecast = OpenWeatherService.weeklyForecast();
+                    console.log("Current", $scope.currentForecast);
+                    console.log("Weekly", $scope.weeklyForecast);
+                    //refresh the weather every hour
+                    $interval(function () {
+                        OpenWeatherService.refreshWeather();
+                        $scope.currentForcast = OpenWeatherService.currentForcast();
+                        $scope.weeklyForcast = OpenWeatherService.weeklyForcast();
+                    }, 3600000);
+                });
+                /*WeatherService.init(geoposition).then(function (){
                     $scope.currentForcast = WeatherService.currentForcast();
                     $scope.weeklyForcast = WeatherService.weeklyForcast();
                     console.log("Current", $scope.currentForcast);
@@ -55,7 +69,7 @@
                         $scope.currentForcast = WeatherService.currentForcast();
                         $scope.weeklyForcast = WeatherService.weeklyForcast();
                     }, 3600000);
-                });
+                });*/
             })
 
             //Initiate Hue communication

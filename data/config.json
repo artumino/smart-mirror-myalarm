@@ -1,0 +1,6 @@
+{
+  "language": "it-IT",
+  "default_location" : "Piacenza, Italy",
+  "oweather_apikey": "99104f2a5be8f0ab70692272bc0f1f8b",
+  "oweather_prefered_unit": "metric"
+}

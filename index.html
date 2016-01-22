@@ -15,6 +15,7 @@
     <script src="js/localization-service.js"></script>
     <script src="js/persister-service.js"></script>
     <script src="js/annyang-service.js"></script>
+    <script src="js/openweather/openweather-service.js"></script>
     <script src="js/weather-service.js"></script>
     <script src="js/map-service.js"></script>
     <script src="js/hue-service.js"></script>
@@ -24,93 +25,115 @@
     <link rel="shortcut icon" href="favicon.ico" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,800,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/weather-icons.css" />
+    <link rel="stylesheet" href="css/weather-icons-wind.css" />
   </head>
-  <body ng-controller="MirrorCtrl as commands">
+<body ng-controller="MirrorCtrl as commands">
     <div class="top">
-      <div class="top-left">
-        <div class="date grey">{{date | date : 'EEEE, MMMM d yyyy'}}</div>
-        <div class="time">{{date | date : 'hh:mm a'}}</div>
-      </div>
-      <div class="top-right">
-        <div class="weather">
-          <div class="weather-today">
-            <span class="tempreture">{{currentForcast.temperature}}&deg;</span>
-          </div>
-          <div class="weather-week-descriptor">{{weeklyForcast.summary}}</div>
-          <div class="weather-week" ng-repeat="forcast in weeklyForcast.data" ng-if="$index > 0">
-            <div class="weather-week-day">
-              <span class="day light-grey">{{forcast.day}}</span>
-              <span class="tempreture tempreture-min">{{forcast.temperatureMin}}</span>
-              <span class="tempreture tempreture-max">{{forcast.temperatureMax}}</span>
-            </div>
-          </div>
+        <div class="top-left">
+            <div class="date grey">{{date | date : 'EEEE, MMMM d yyyy'}}</div>
+            <div class="time">{{date | date : 'hh:mm a'}}</div>
         </div>
-      </div>
+        <div class="top-right">
+            <div class="weather" ng-if="currentForecast">
+                <div class="weather-today">
+                    <span class="icon-box">
+                        <span class="icon {{forecast.getIconForWeather(currentForecast.weather[0].id)}}"></span>
+                        <span class="sup-icon wi wi-umbrella" ng-if="currentForecast.rain">{{currentForecast.rain}}mm</span>
+                        <span class="sup-icon wi wi-snowflake-cold" ng-if="currentForecast.snow">{{currentForecast.snow}}mm</span>
+                    </span>
+                    <span class="temperature">{{currentForecast.temp.day}}&deg;</span>
+                    <span class="info-box">
+                        <span class="info">{{forecast.currentCity()}}</span>
+                        <span class="info">{{forecast.getDescriptionForWeather(currentForecast.weather[0].id)}}</span>
+                    </span>
+                    <span class="temperature-box">
+                        <span class="temperature">{{currentForecast.temp.max}}&deg;</span>
+                        <span class="temperature">{{currentForecast.temp.min}}&deg;</span>
+                    </span>
+                </div>
+                <div style="border-bottom: solid white 1px; margin: 10px 5px 15px 5px;"></div>
+                <div class="weather-week" ng-repeat="daily in weeklyForecast" ng-if="$index > 0">
+                  <div class="weather-week-day">
+                    <span class="day light-grey">{{daily.day}}</span>
+                    <span class="temperature">{{daily.temp.day}}&deg;</span>
+                    <span class="temperature-box">
+                        <span class="temperature">{{daily.temp.max}}&deg;</span>
+                        <span class="temperature">{{daily.temp.min}}&deg;</span>
+                    </span>
+                    <span class="icon {{forecast.getIconForWeather(daily.weather[0].id)}}"></span>
+                  </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="container">
-      <div class="middle-center">
-        <h1>{{compliment}}</h1>
-        <h3 ng-show="!(user.name === undefined)">{{user.name}}</h3>
-        <!-- <div class="listening" ng-show="listening">Ready: {{focus}}</div> -->
-        <div class="map-container animate-grow" ng-show="focus == 'map'">
-          <img class="map animate-grow" ng-src="{{map}}"/>
+        <div class="middle-center">
+            <h1>{{compliment}}</h1>
+            <h3 ng-show="!(user.name === undefined)">{{user.name}}</h3>
+            <!-- <div class="listening" ng-show="listening">Ready: {{focus}}</div> -->
+            <div class="map-container animate-grow" ng-show="focus == 'map'">
+                <img class="map animate-grow" ng-src="{{map}}" />
+            </div>
         </div>
-      </div>
-      <div class="bottom-center">
-        <!-- Command list -->
-        <div class="commands animate-grow" ng-show="focus == 'commands'">
-          <h2>{{locale.getString("help_available_commands")}}</h2>
-          <dl>
-            <dd>{{locale.getString("help_command_help")}}</dd>
-            <dt>{{locale.getString("help_description_help")}}</dt>
-            <dd>{{locale.getString("help_command_home")}}</dd>
-            <dt>{{locale.getString("help_description_home")}}</dt>
-            <dd>{{locale.getString("help_command_showme")}}</dd>
-            <dt>{{locale.getString("help_description_showme")}}</dt>
-            <dd>{{locale.getString("help_command_remindme")}}</dd>
-            <dt>{{locale.getString("help_description_remindme")}}</dt>
-            <dd>{{locale.getString("help_command_clearreminder")}}</dd>
-            <dt>{{locale.getString("help_description_clearreminder")}}</dt>
-            <dd>{{locale.getString("help_command_showmap")}}</dd>
-            <dt>{{locale.getString("help_description_showmap")}}</dt>
-            <dd>{{locale.getString("help_command_showmapof")}}</dd>
-            <dt>{{locale.getString("help_description_showmapof")}}</dt>
-          </dl>
-          <small>
-            {{locale.getString("help_info_node_label")}} <script>document.write(process.versions.node)</script>,
-            Chrome <script>document.write(process.versions.chrome)</script>,
-            {{locale.getString("help_info_electron_label")}} <script>document.write(process.versions.electron)</script>.
-          </small>
-        </div>
+        <div class="bottom-center">
+            <!-- Command list -->
+            <div class="commands animate-grow" ng-show="focus == 'commands'">
+                <h2>{{locale.getString("help_available_commands")}}</h2>
+                <dl>
+                    <dd>{{locale.getString("help_command_help")}}</dd>
+                    <dt>{{locale.getString("help_description_help")}}</dt>
+                    <dd>{{locale.getString("help_command_home")}}</dd>
+                    <dt>{{locale.getString("help_description_home")}}</dt>
+                    <dd>{{locale.getString("help_command_showme")}}</dd>
+                    <dt>{{locale.getString("help_description_showme")}}</dt>
+                    <dd>{{locale.getString("help_command_remindme")}}</dd>
+                    <dt>{{locale.getString("help_description_remindme")}}</dt>
+                    <dd>{{locale.getString("help_command_clearreminder")}}</dd>
+                    <dt>{{locale.getString("help_description_clearreminder")}}</dt>
+                    <dd>{{locale.getString("help_command_showmap")}}</dd>
+                    <dt>{{locale.getString("help_description_showmap")}}</dt>
+                    <dd>{{locale.getString("help_command_showmapof")}}</dd>
+                    <dt>{{locale.getString("help_description_showmapof")}}</dt>
+                </dl>
+                <small>
+                    {{locale.getString("help_info_node_label")}}
+                    <script>document.write(process.versions.node)</script>,
+                    Chrome
+                    <script>document.write(process.versions.chrome)</script>,
+                    {{locale.getString("help_info_electron_label")}}
+                    <script>document.write(process.versions.electron)</script>.
+                </small>
+            </div>
 
-        <div class="interim-result" ng-bind="interimResult"></div>
-      </div>
-      <div class="colors animate-grow" ng-show="focus == 'colors'">
-        <div class="color-block" ng-repeat="color in colors" style="background-color:{{color}}"></div>
-      </div>
+            <div class="interim-result" ng-bind="interimResult"></div>
+        </div>
+        <div class="colors animate-grow" ng-show="focus == 'colors'">
+            <div class="color-block" ng-repeat="color in colors" style="background-color:{{color}}"></div>
+        </div>
     </div>
     <!-- Debug Buttons -->
     <div class="debug-info">
-      <!--<button ng-click="debug = true">Open Debug</button>-->
+        <!--<button ng-click="debug = true">Open Debug</button>-->
     </div>
     <div class="debug-info" ng-show="debug == true">
-      <button ng-click="focus = (focus == 'map')?'default':'map'">Map</button>
-      <button ng-click="focus = (focus == 'colors')?'default':'colors'">Colors</button>
-      <button ng-click="focus = (focus == 'commands')?'default':'commands'">Commands</button>
-      <button ng-click="debug = false">Close Debug</button>
-      <!-- Has results -->
-      <div ng-show="commands.results.length > 0">
-        <button class="btn btn-default" ng-click="commands.clearResults()">Clear</button>
-        <hr/>
-        <ul class="list-group">
-          <li class="list-group-item" ng-repeat="result in commands.results">
-            <span class="badge">{{ result.date | date : 'EEE MMM, yyyy hh:mm:ss a' }}</span>
-            {{ result.content }}
-          </li>
-        </ul>
-      </div>
+        <button ng-click="focus = (focus == 'map')?'default':'map'">Map</button>
+        <button ng-click="focus = (focus == 'colors')?'default':'colors'">Colors</button>
+        <button ng-click="focus = (focus == 'commands')?'default':'commands'">Commands</button>
+        <button ng-click="debug = false">Close Debug</button>
+        <!-- Has results -->
+        <div ng-show="commands.results.length > 0">
+            <button class="btn btn-default" ng-click="commands.clearResults()">Clear</button>
+            <hr />
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="result in commands.results">
+                    <span class="badge">{{ result.date | date : 'EEE MMM, yyyy hh:mm:ss a' }}</span>
+                    {{ result.content }}
+                </li>
+            </ul>
+        </div>
     </div>
     <!-- Sleep cover -->
     <div ng-show="focus == 'sleep'" class="sleep-cover fade"></div>
-  </body>
+</body>
 </html>

@@ -1,6 +1,6 @@
 @font-face {
     font-family: "HelveticaNeue-UltraLight";
-    src: url("../fonts/HelveticaNeue-UltraLight.ttf"); /* EOT file for IE */
+    src: url("../font/HelveticaNeue-UltraLight.ttf"); /* EOT file for IE */
 }
 
 body {
@@ -112,33 +112,96 @@ dt {
     text-align: right;
 }
 
-.weather-today .tempreture {
+.icon
+{
+    font-size: 45px;
+}
+
+.weather-today {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 45px;
+}
+
+.weather-today .info-box
+{
+    display: inline-block;
+}
+
+.weather-today .info-box .info
+{
+    display: table-row;
+    font-size:20px;
+}
+
+.weather-today .icon-box
+{
+    display: inline-block;
+}
+
+.weather-today .icon-box .icon {
+    display: table-row;
+    font-size: 45px;
+}
+
+.weather-today .icon-box .sup-icon {
+    display: table-row;
+    font-size: 16px;
+}
+
+.weather-today .temperature-box
+{
+    display: inline-block;
+}
+
+
+.weather-today .temperature {
     font-size: 80px;
 }
 
-.weather-week-descriptor {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
-    max-width: 55%;
-    margin-left: auto;
-    margin-bottom: 10px;
-    text-align: justify;
+.weather-today .temperature-box .temperature
+{
+    display: table-row;
+    font-size: 20px;
 }
 
 .weather-week {
+    display: flex;
+    border-spacing: 20px 2px;
+    vertical-align: middle;
     margin-right: 10px;
     font-size: 22px;
 }
 
-.weather-week .day {
+.weather-week .icon
+{
     display: inline-block;
-    margin-right: 10px;
-    width: 50px;
+    vertical-align: middle;
+    font-size: 35px;
 }
 
-.weather-week .tempreture {
+.weather-week .day {
+    vertical-align: middle;
     display: inline-block;
-    width: 60px;
+    margin-right: 10px;
+}
+
+.weather-week .temperature {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.weather-week .temperature-box
+{
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.weather-week .temperature-box .temperature
+{
+    vertical-align: middle;
+    display: table-row;
+    font-size: 20px;
 }
 
 .map {
