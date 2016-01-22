@@ -20,7 +20,7 @@ h5 {
 }
 
 h1 {
-    font-size: 120px;
+    font-size: 2cm;
 }
 
 dt {
@@ -70,11 +70,11 @@ dt {
 }
 
 .date {
-    font-size: 42px;
+    font-size: 0.85cm;
 }
 
 .time {
-    font-size: 110px;
+    font-size: 2cm;
 }
 
 .top-right {
@@ -96,14 +96,19 @@ dt {
     font-family: 'Open Sans', sans-serif;
     width: 100%;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 0.8cm;
 }
 
 .commands {
-    width: 450px;
-    text-align: left;
+    width: 15cm;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
+}
+
+.commands dd {
+    margin-right: 0px;
+    -webkit-margin-start: 0px;
 }
 
 .weather {
@@ -114,13 +119,13 @@ dt {
 
 .icon
 {
-    font-size: 45px;
+    font-size: 2cm;
 }
 
 .weather-today {
     display: inline-block;
     vertical-align: middle;
-    font-size: 45px;
+    font-size: 0.8cm;
 }
 
 .weather-today .info-box
@@ -131,7 +136,7 @@ dt {
 .weather-today .info-box .info
 {
     display: table-row;
-    font-size:20px;
+    font-size: 0.5cm;
 }
 
 .weather-today .icon-box
@@ -141,18 +146,18 @@ dt {
 
 .weather-today .icon-box .icon {
     display: table-row;
-    font-size: 35px;
+    font-size: 0.8cm;
 }
 
 .weather-today .icon-box .sup-box
 {
     display: table-row;
-    font-size: 20px;
+    font-size: 0.4cm;
 }
 
 .weather-today .icon-box .sup-box .sup-icon {
     display: inline-block;
-    font-size: 20px;
+    font-size: 0.4cm;
 }
 
 .weather-today .temperature-box
@@ -162,13 +167,13 @@ dt {
 
 
 .weather-today .temperature {
-    font-size: 80px;
+    font-size: 1.3cm;
 }
 
 .weather-today .temperature-box .temperature
 {
     display: table-row;
-    font-size: 20px;
+    font-size: 0.5cm;
 }
 
 .weather-week {
@@ -176,9 +181,9 @@ dt {
     flex-direction: column;
     vertical-align: middle;
     text-align: center;
-    margin-right: 10px;
-    font-size: 22px;
-    margin-bottom: 5px;
+    margin-right: 0.1cm;
+    font-size: 0.8cm;
+    margin-bottom: 0.05cm;
 }
 
 .weather-week .weather-week-day
@@ -186,21 +191,21 @@ dt {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 0.1cm;
 }
 
 .weather-week .weather-week-day .icon
 {
     flex: 1;
     vertical-align: middle;
-    font-size: 35px;
+    font-size: 0.8cm;
 }
 
 .weather-week .weather-week-day .day {
     flex: 1;
     text-align: left;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 0.1cm;
 }
 
 .weather-week .weather-week-day .temperature {
@@ -219,16 +224,16 @@ dt {
 {
     vertical-align: middle;
     display: table-row;
-    font-size: 20px;
+    font-size: 0.5cm;
 }
 
 .map {
-    height: 1080px;
+    height: 25cm;
     max-width: 100%;
 }
 
 .map-container {
-    height: 1080px;
+    height: 25cm;
     text-align: center;
     width: 100%;
     position: relative;
@@ -249,15 +254,15 @@ dt {
 }
 
 .color-block {
-    height: 200px;
-    width: 200px;
+    height: 6cm;
+    width: 6cm;
     display: inline-block;
     margin: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 0.8cm;
 }
 
 .debug-info {
-    width: 500px;
+    width: 10cm;
 }
 
 /* Animations */
@@ -279,7 +284,7 @@ dt {
 }
 
 .animate-grow {
-    max-height: 1280px !important;
+    max-height: 30cm !important;
 }
 
 .animate-grow.ng-hide-add {
