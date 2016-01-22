@@ -1,7 +1,9 @@
 {
 	"default_language_location" : "Seattle,WA",
 	"default_homepage_say_label" : "Say \"What can I say?\" to see a list of commands...",
-	"default_homepage_compliment" : "Hi, sexy!",
+  "default_homepage_compliment": "Hi, sexy!",
+
+
 	"help_available_commands" : "Availalble Commands",
 	"help_command_help" : "What can I say?",
 	"help_description_help" : "Shows a list of voice commands available to you.",
@@ -18,7 +20,9 @@
 	"help_command_showmapof" : "Show map of ________",
 	"help_description_showmapof" : "Shows a map of the given location.",
 	"help_info_node_label" : "We are using node",
-	"help_info_electron_label" : "and Electron",
+  "help_info_electron_label": "and Electron",
+
+
 	"command_help" : "What can I say",
 	"command_home" : "Go home",
 	"command_sleep" : "Go to sleep",
@@ -31,9 +35,9 @@
 	"command_map_zoomto" : "(map) zoom (to) *value",
 	"command_map_zoomreset" : "(map) reset zoom",
 	"command_showme" : "Show me *term",
-	"command_setname" : "My (name is)(name\'s) *name",
+	"command_setname" : "My (name is)(name's) *name",
 	"command_reminder" : "Remind me to *task",
 	"command_reminder_clear" : "Clear reminders",
 	"command_results_clear" : "Clear results",
-	"command_time" : "what time is it"
+  "command_time": "what time is it"
 }

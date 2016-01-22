@@ -17,15 +17,28 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="fonts\HelveticaNeue-UltraLight.ttf" />
+    <Content Include="css\weather-icons-wind.css" />
+    <Content Include="css\weather-icons-wind.min.css" />
+    <Content Include="css\weather-icons.css" />
+    <Content Include="css\weather-icons.min.css" />
+    <Content Include="font\HelveticaNeue-UltraLight.ttf" />
+    <Content Include="font\weathericons-regular-webfont.eot" />
+    <Content Include="font\weathericons-regular-webfont.svg" />
+    <Content Include="font\weathericons-regular-webfont.ttf" />
+    <Content Include="font\weathericons-regular-webfont.woff" />
+    <Content Include="font\weathericons-regular-webfont.woff2" />
     <Content Include="index.html" />
     <Content Include="favicon.ico" />
+    <Content Include="data\config.json" />
+    <Content Include="js\openweather\icons_it-IT.json" />
+    <Content Include="js\openweather\icons_en-US.json" />
     <Content Include="loc\en-US.json" />
     <Content Include="loc\it-IT.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Compile Include="js\localization-service.js" />
     <Compile Include="js\persister-service.js" />
+    <Compile Include="js\openweather\openweather-service.js" />
     <Compile Include="main.js" />
     <Content Include="css\main.css" />
     <Compile Include="js\annyang-service.js" />
@@ -41,9 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css" />
-    <Folder Include="fonts" />
+    <Folder Include="font\" />
     <Folder Include="js" />
+    <Folder Include="js\openweather\" />
     <Folder Include="loc\" />
+    <Folder Include="data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
