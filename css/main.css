@@ -141,12 +141,18 @@ dt {
 
 .weather-today .icon-box .icon {
     display: table-row;
-    font-size: 45px;
+    font-size: 35px;
 }
 
-.weather-today .icon-box .sup-icon {
+.weather-today .icon-box .sup-box
+{
     display: table-row;
-    font-size: 16px;
+    font-size: 20px;
+}
+
+.weather-today .icon-box .sup-box .sup-icon {
+    display: inline-block;
+    font-size: 20px;
 }
 
 .weather-today .temperature-box
@@ -167,37 +173,49 @@ dt {
 
 .weather-week {
     display: flex;
-    border-spacing: 20px 2px;
+    flex-direction: column;
     vertical-align: middle;
+    text-align: center;
     margin-right: 10px;
     font-size: 22px;
+    margin-bottom: 5px;
 }
 
-.weather-week .icon
+.weather-week .weather-week-day
 {
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.weather-week .weather-week-day .icon
+{
+    flex: 1;
     vertical-align: middle;
     font-size: 35px;
 }
 
-.weather-week .day {
+.weather-week .weather-week-day .day {
+    flex: 1;
+    text-align: left;
     vertical-align: middle;
-    display: inline-block;
     margin-right: 10px;
 }
 
-.weather-week .temperature {
+.weather-week .weather-week-day .temperature {
+    flex: 1;
     vertical-align: middle;
-    display: inline-block;
 }
 
-.weather-week .temperature-box
+.weather-week .weather-week-day .temperature-box
 {
+    flex: 1;
+    text-align: right;
     vertical-align: middle;
-    display: inline-block;
 }
 
-.weather-week .temperature-box .temperature
+.weather-week .weather-week-day .temperature-box .temperature
 {
     vertical-align: middle;
     display: table-row;
