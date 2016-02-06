@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    function MirrorCtrl(AnnyangService, GeolocationService, WeatherService, OpenWeatherService, MapService, PersisterService, LocalizationService, HueService, $scope, $timeout, $interval) {
+    function MirrorCtrl(AnnyangService, GeolocationService, WeatherService, MapService, HueService, $scope, $timeout, $interval) {
         var _this = this;
         
         //Initialize persisters outside the init function
@@ -40,28 +40,29 @@
             _this.clearResults();
             restCommand();
 
+            var refreshMirrorData = function() {
             //Get our location and then get the weather for our location
-            GeolocationService.getLocation().then(function(geoposition){
-                console.log("Geoposition", geoposition);
+                GeolocationService.getLocation({enableHighAccuracy: true}).then(function(geoposition){
+                    console.log("Geoposition", geoposition);
                 
-                OpenWeatherService.init(geoposition, PersisterService).then(function () {
-                    $scope.forecast = OpenWeatherService;
-                    $scope.currentForecast = OpenWeatherService.currentForecast();
-                    $scope.weeklyForecast = OpenWeatherService.weeklyForecast();
-                    console.log("Current", $scope.currentForecast);
-                    console.log("Weekly", $scope.weeklyForecast);
-                    //refresh the weather every hour
-                    $interval(function () {
-                        OpenWeatherService.refreshWeather();
-                        $scope.currentForcast = OpenWeatherService.currentForcast();
-                        $scope.weeklyForcast = OpenWeatherService.weeklyForcast();
-                    }, 3600000);
-                });
-                /*WeatherService.init(geoposition).then(function (){
-                    $scope.currentForcast = WeatherService.currentForcast();
-                    $scope.weeklyForcast = WeatherService.weeklyForcast();
-                    console.log("Current", $scope.currentForcast);
-                    console.log("Weekly", $scope.weeklyForcast);
+                    OpenWeatherService.init(geoposition, PersisterService).then(function () {
+                        $scope.forecast = OpenWeatherService;
+                        $scope.currentForecast = OpenWeatherService.currentForecast();
+                        $scope.weeklyForecast = OpenWeatherService.weeklyForecast();
+                        console.log("Current", $scope.currentForecast);
+                        console.log("Weekly", $scope.weeklyForecast);
+                        //refresh the weather every hour
+                        $interval(function () {
+                            OpenWeatherService.refreshWeather();
+                            $scope.currentForcast = OpenWeatherService.currentForcast();
+                            $scope.weeklyForcast = OpenWeatherService.weeklyForcast();
+                        }, 3600000);
+                    });
+                    /*WeatherService.init(geoposition).then(function (){
+                        $scope.currentForcast = WeatherService.currentForcast();
+                        $scope.weeklyForcast = WeatherService.weeklyForcast();
+                        console.log("Current", $scope.currentForcast);
+                        console.log("Weekly", $scope.weeklyForcast);
                     //refresh the weather every hour
                     //this doesn't acutually updat the UI yet
                     $interval(function () {
@@ -70,7 +71,16 @@
                         $scope.weeklyForcast = WeatherService.weeklyForcast();
                     }, 3600000);
                 });*/
-            })
+
+                var promise = CalendarService.renderAppointments();
+                promise.then(function(response) {
+                    $scope.calendar = CalendarService.getFutureEvents();
+                }, function(error) {
+                    console.log(error);
+                });
+            };
+
+            $timeout(refreshMirrorData(), 3600000);
 
             //Initiate Hue communication
             //HueService.init();
