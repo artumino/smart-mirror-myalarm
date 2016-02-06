@@ -36,6 +36,8 @@
     <Content Include="loc\it-IT.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Compile Include="js\calendar-service.js" />
+    <Compile Include="js\dateFormatFilter.js" />
     <Compile Include="js\localization-service.js" />
     <Compile Include="js\persister-service.js" />
     <Compile Include="js\openweather\openweather-service.js" />
